@@ -25,3 +25,12 @@ services:
       - '80:80'
     networks:
       - application
+  mysql:
+    container_name: banco_mysql
+    image: mysql:5
+    networks:
+      - rede_wordpress
+    volumes:
+      - mysql_vol:/var/lib/mysql
+    env_file:
+      - ./mysql/mysql.env
