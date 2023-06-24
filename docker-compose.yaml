@@ -1,0 +1,27 @@
+version: '3'
+
+networks:
+  application:
+    driver: bridge
+
+services:
+  php:
+    image: php:5.6-fpm-alpine
+    container_name: php
+    volumes:
+      - ./codigo/:/var/www/html/
+    ports:
+      - '9000:9000'
+    networks:
+      - application
+  nginx:
+    image: nginx:1.18.0
+    container_name: nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./codigo/:/var/www/html/
+    ports:
+      - '80:80'
+    networks:
+      - application
